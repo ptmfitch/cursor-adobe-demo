@@ -1,0 +1,20 @@
+---
+description: Layout and spacing standards for the Adobe Cursor demo app
+globs: src/**/*.tsx, src/lib/demoLayout.ts
+---
+
+# Demo layout standards
+
+## Feature section spacing
+
+Use `FEATURE_SECTION_GAP_STANDARD_PX` (24px) for the gap above the feature grid section.
+Apply via `FEATURE_SECTION_GAP_PX` in `src/lib/demoLayout.ts`.
+
+## Feature card spacing
+
+Use a single consistent `FEATURE_CARD_GAP_PX` for all feature cards in the grid.
+Do not apply per-card margin overrides in `FeatureGrid.tsx`.
+
+## Theme hints
+
+Reveal trail hint text must use `CURSOR_MUTED_TEXT` from `demoTheme.ts`, not `PAGE_BACKGROUND`.
