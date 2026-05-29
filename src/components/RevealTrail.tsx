@@ -4,25 +4,24 @@ type RevealTrailProps = {
 
 export default function RevealTrail({ pingOk }: RevealTrailProps) {
   return (
-    <aside
-      aria-label="Demo reveal trail"
-      className="space-y-2 rounded-lg border border-dashed border-white/15 px-4 py-3 text-sm"
+    <div
+      aria-live="polite"
+      className="space-y-1.5 pt-6 text-center sm:text-left"
     >
-      <p className="text-xs uppercase tracking-wide text-cursor-muted">
-        Reveal trail
+      <p className="reveal-hint reveal-hint-1">
+        Remove the hero mark.
       </p>
-      <p className="reveal-hint-1">
-        Step 2: fix feature section spacing in demoLayout.ts (see
-        demo-standards.mdc).
+      <p className="reveal-hint reveal-hint-2">
+        Balance the panel inset in demoLayout.ts.
       </p>
-      <p className="reveal-hint-2">
-        Step 3: fix /api/ping, then load team stats.
+      <p className="reveal-hint reveal-hint-3">
+        Repair the ping endpoint.
       </p>
       {pingOk ? (
-        <p className="text-adobe-amber">
-          Use MCP and the right model for data and debug work.
+        <p className="reveal-hint reveal-hint-4">
+          Index usage_events.team — use MCP.
         </p>
       ) : null}
-    </aside>
+    </div>
   );
 }

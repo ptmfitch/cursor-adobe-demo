@@ -50,7 +50,6 @@ export async function GET(request: NextRequest) {
         docsExamined: executionStats.executionStats?.totalDocsExamined,
         executionTimeMillis:
           executionStats.executionStats?.executionTimeMillis,
-        hint: 'Add index on team via MongoDB MCP for faster queries',
       },
     });
   } catch (error) {

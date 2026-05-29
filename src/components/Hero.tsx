@@ -1,37 +1,38 @@
-import { ADOBE_AMBER } from '@/lib/demoTheme';
-import { HERO_LOGO_SIZE_PX } from '@/lib/demoLayout';
+import { SHOW_HERO_MARK } from '@/lib/demoTheme';
+import { HERO_MARK_SIZE_PX } from '@/lib/demoLayout';
 
 type HeroProps = {
   headline: string;
+  subline: string;
 };
 
-export default function Hero({ headline }: HeroProps) {
+export default function Hero({ headline, subline }: HeroProps) {
   return (
-    <header className="space-y-4">
-      <div
-        className="h-1 w-24 rounded-full"
-        style={{
-          background: `linear-gradient(90deg, ${ADOBE_AMBER}, #ED1C24)`,
-        }}
-      />
-      <div className="flex items-center gap-4">
-        {/* DEMO: Missing file — add public/cursor-mark.svg */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/placeholder-cursor-logo.png"
-          alt="Cursor"
-          width={HERO_LOGO_SIZE_PX}
-          height={HERO_LOGO_SIZE_PX}
-          className="rounded-md"
-        />
-        <h1 className="text-2xl font-semibold tracking-tight text-cursor-text sm:text-3xl">
-          {headline}
-        </h1>
+    <header className="space-y-8 text-center sm:text-left">
+      <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
+        {SHOW_HERO_MARK ? (
+          /* DEMO: broken asset — swap to /cursor-mark.svg or remove */
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
+            src="/placeholder-cursor-logo.png"
+            alt=""
+            width={HERO_MARK_SIZE_PX}
+            height={HERO_MARK_SIZE_PX}
+            className="rounded-2xl ring-1 ring-white/10"
+          />
+        ) : null}
+        <div className="space-y-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-adobe-red">
+            30-day trial
+          </p>
+          <h1 className="max-w-xl text-balance text-4xl font-semibold leading-[1.08] tracking-tight text-cursor-text sm:text-5xl">
+            {headline}
+          </h1>
+          <p className="max-w-md text-pretty text-lg leading-relaxed text-cursor-muted">
+            {subline}
+          </p>
+        </div>
       </div>
-      <p className="text-base leading-relaxed text-cursor-muted">
-        Ship faster with agents across editor, terminal, and web — your 30-day
-        trial starts now.
-      </p>
     </header>
   );
 }

@@ -2,83 +2,72 @@
 
 Open `~/Programming/git/cursor-adobe-demo` in Cursor. Run `npm run mongo:up` and `npm run dev` before the session.
 
+The page looks polished on purpose. Hidden hints at the bottom unlock as you fix things — only you see the next step in `DEMO_SCRIPT.md` until each reveal fires.
+
+## Progressive reveal (your script)
+
+| You do (not on screen) | Hidden hint that appears |
+|------------------------|--------------------------|
+| Fix `HIDDEN_HINT_COLOR` → `CURSOR_MUTED_TEXT` in `demoTheme.ts` | “Remove the hero mark.” |
+| Set `SHOW_HERO_MARK` to `false` or fix image in `Hero.tsx` | “Balance the panel inset in demoLayout.ts.” |
+| Fix `FEATURE_SECTION_GAP_PX` + panel inset per `@demo-standards.mdc` | “Repair the ping endpoint.” |
+| Fix `/api/ping` → **Test API** shows Connected | “Index usage_events.team — use MCP.” |
+
+Optional quick win before the chain: typo `Welcom` → `Welcome` in `page.tsx` (Tab first).
+
 ## Agenda
 
 | Min | Beat | Narrate |
 |-----|------|---------|
-| 0–1 | Show repo + broken page | Full IDE context; agents see the whole project |
-| 1–3 | Typo, image, spacing | Fast model / Tab for small edits; Rules in `@demo-standards.mdc` |
-| 3–6 | Fix `/api/ping` 500 | Thinking model for debug; Agent View for API + UI |
-| 6–10 | MongoDB MCP + index | MCP connects your stack; Plan mode optional before index |
-| 10–13 | Reveal trail steps 1–2 | Multi-step guidance in `demoTheme.ts` / `demoLayout.ts` |
-| 13–15 | Capability strip | Model routing, MCP, Rules, IDE / CLI / Web Agents |
+| 0–1 | Show the page | Looks intentional — then peel back the layers |
+| 1–4 | Color → image → spacing | Fast model; Rules in `@demo-standards.mdc` |
+| 4–7 | API 500 | Thinking model; Agent View across route + panel |
+| 7–11 | MongoDB MCP + index | Real stack; Plan mode optional |
+| 11–15 | Talk Cursor 3 surfaces, models, MCP | You drive — nothing repeated on the page |
 
-## Model routing (switch in agent picker)
+## Model routing
 
 | Fix | Suggested prompt | Model tier |
 |-----|------------------|------------|
-| Typo `Welcom` | Fix the welcome headline typo | Fast — try Tab first |
-| Hero image | Wire hero logo to `public/cursor-mark.svg` | Fast |
-| Feature spacing | Even card spacing per `@demo-standards.mdc` | Fast |
-| API 500 | Fix `/api/ping` to return 200 JSON | Thinking / debug |
-| Mongo slow | Inspect `usage_events`, add index on `team` | Agent + MongoDB MCP |
+| Typo | Fix the welcome headline | Fast / Tab |
+| Hint color | Set hint text color per demo-standards | Fast |
+| Hero mark | Remove or fix the hero image | Fast |
+| Panel spacing | Balance panel inset and section gap per rules | Fast |
+| API 500 | Fix `/api/ping` to return 200 JSON | Thinking |
+| Mongo | Inspect `usage_events`, add `{ team: 1 }` index | Agent + MCP |
 
-## Live fixes (pick 3–5)
+## Fix details
 
-### 1. Typo (30s)
+### Color (hint 1)
 
-File: `src/app/page.tsx` — change `Welcom` → `Welcome`.
+`src/lib/demoTheme.ts` — `HIDDEN_HINT_COLOR = CURSOR_MUTED_TEXT`
 
-### 2. Hero image (1–2 min)
+### Hero mark (hint 2)
 
-File: `src/components/Hero.tsx` — set `src="/cursor-mark.svg"`.
+`src/lib/demoTheme.ts` — `SHOW_HERO_MARK = false`, or `Hero.tsx` → `/cursor-mark.svg`
 
-### 3. Uneven spacing (1–2 min)
+### Spacing (hint 3)
 
-Files: `src/lib/demoLayout.ts`, `src/components/FeatureGrid.tsx`
+`src/lib/demoLayout.ts`:
 
-- Set `FEATURE_SECTION_GAP_PX` to `FEATURE_SECTION_GAP_STANDARD_PX` (24)
-- Set `HIDDEN_HINT_COLOR` to `CURSOR_MUTED_TEXT` in `demoTheme.ts`
-- Remove per-card margin overrides; use one `FEATURE_CARD_GAP_PX`
+- `FEATURE_SECTION_GAP_PX = FEATURE_SECTION_GAP_STANDARD_PX`
+- `PANEL_INSET_END_PX = PANEL_INSET_STANDARD_PX`
 
-### 4. API 500 (2–3 min)
+### API (hint 4)
 
-File: `src/app/api/ping/route.ts`
+`src/app/api/ping/route.ts`:
 
 ```ts
-return NextResponse.json({ ok: true, message: 'Adobe trial API ready' });
+return NextResponse.json({ ok: true, message: 'Ready' });
 ```
 
-Click **Test API** — green status unlocks **Load team stats**.
+### MongoDB MCP
 
-### 5. MongoDB MCP (4–5 min)
+1. **Load team stats** — note docs examined
+2. MongoDB MCP: sample `usage_events`, explain `{ team: "design" }`
+3. `db.usage_events.createIndex({ team: 1 })`
+4. Re-run stats
 
-1. Click **Load team stats** — note `docsExamined` in the UI
-2. MongoDB MCP: list collections, sample `usage_events`, explain query on `{ team: "design" }`
-3. Optional: Plan mode — propose `{ team: 1 }` index, confirm, apply
-4. Re-run stats — lower `docsExamined` / faster response
+## Differentiators (you narrate — not on page)
 
-Example index (via MCP or mongosh):
-
-```js
-db.usage_events.createIndex({ team: 1 })
-```
-
-## Progressive reveal (optional)
-
-1. Fix `HIDDEN_HINT_COLOR` → first hint visible
-2. Fix `FEATURE_SECTION_GAP_PX` → second hint visible
-3. Fix ping API → final MCP/model line appears
-
-## Differentiators to mention (no competitor names)
-
-- **Models**: Match depth to task size
-- **Agent View**: Multi-file edits with project context
-- **MCP**: Real databases and tools in the loop
-- **Rules**: Standards in `.cursor/rules/`
-- **Surfaces**: Same agents in IDE, CLI, and web
-- **Background agents**: Long refactors while you keep coding
-
-## Optional verification
-
-After API fix: Browser MCP snapshot of `http://localhost:3001` to confirm UI state.
+Models per task, Agent View, MCP, Rules, IDE / CLI / Web Agents, background agents.
