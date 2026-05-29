@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Adobe × Cursor',
-  description: 'Welcome to your Cursor trial.',
+  title: 'Adobe × Cursor — Creative Gallery',
+  description: 'Adobe trial demo — build a Pexels-powered creative gallery with Cursor.',
 };
 
 export default function RootLayout({

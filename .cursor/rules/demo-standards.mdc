@@ -1,23 +1,27 @@
 ---
-description: Layout and spacing standards for the Adobe Cursor demo app
-globs: src/**/*.tsx, src/lib/demoLayout.ts, src/lib/demoTheme.ts
+description: Layout and component standards for the Adobe creative gallery demo
+globs: src/**/*.tsx, src/lib/theme.ts, src/lib/gallery/**/*
 ---
 
-# Demo layout standards
+# Demo standards
 
-## Panel inset
+## Theme tokens
 
-Use `PANEL_INSET_STANDARD_PX` (24px) for horizontal padding on the glass panel.
-Apply symmetrically via `PANEL_INSET_END_PX` in `src/lib/demoLayout.ts`.
+Use constants from `src/lib/theme.ts` for page layout. Gallery thumb width and grid row unit live in `src/app/constants/galleryLayout.js`.
 
-## Section spacing
+## Gallery layout
 
-Use `FEATURE_SECTION_GAP_STANDARD_PX` (24px) above the glass panel via `FEATURE_SECTION_GAP_PX`.
+- Masonry grid: `grid gallery gap-1` with `GalleryImage` component.
+- Match patterns from nextjs-image-gallery (`ImgContainer`, `GalleryInfiniteScroll`).
 
-## Reveal hints
+## API routes
 
-Hint text must use `CURSOR_MUTED_TEXT` from `demoTheme.ts`, not `PAGE_BACKGROUND`.
+Follow `src/app/api/reference/gallery/route.ts` and `src/lib/api/`:
+- `withApiHandler` wrapper
+- Zod via `parseQueryParams` / `parseJsonBody`
+- Pexels fetch via `src/lib/gallery/fetchImages.ts`
+- Blur placeholders via `addBlurredDataUrls`
 
-## Hero mark
+## Feature ideas
 
-Set `SHOW_HERO_MARK` to `false` in `demoTheme.ts` when the hero image should be removed.
+Add demo cards in `src/lib/demoFeatureIdeas.ts` — gallery features, not meta Cursor UI.

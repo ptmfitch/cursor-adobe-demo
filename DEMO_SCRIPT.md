@@ -1,73 +1,54 @@
 # Demo script — Adobe × Cursor 3 (10–15 min)
 
-Open `~/Programming/git/cursor-adobe-demo` in Cursor. Run `npm run mongo:up` and `npm run dev` before the session.
+Open `~/Programming/git/cursor-adobe-demo` in Cursor. Copy your Pexels key from nextjs-image-gallery if you have one:
 
-The page looks polished on purpose. Hidden hints at the bottom unlock as you fix things — only you see the next step in `DEMO_SCRIPT.md` until each reveal fires.
+```bash
+cp .env.example .env.local
+# NEXT_PUBLIC_PEXELS_API_KEY=...
+npm run dev
+```
 
-## Progressive reveal (your script)
+## Flow
 
-| You do (not on screen) | Hidden hint that appears |
-|------------------------|--------------------------|
-| Fix `HIDDEN_HINT_COLOR` → `CURSOR_MUTED_TEXT` in `demoTheme.ts` | “Remove the hero mark.” |
-| Set `SHOW_HERO_MARK` to `false` or fix image in `Hero.tsx` | “Balance the panel inset in demoLayout.ts.” |
-| Fix `FEATURE_SECTION_GAP_PX` + panel inset per `@demo-standards.mdc` | “Repair the ping endpoint.” |
-| Fix `/api/ping` → **Test API** shows Connected | “Index usage_events.team — use MCP.” |
-
-Optional quick win before the chain: typo `Welcom` → `Welcome` in `page.tsx` (Tab first).
+1. **Show the gallery landing** — curated preview, search bar shell, build ideas.
+2. **Open the reference API** — compare with your nextjs-image-gallery `/api/gallery` route.
+3. **Pick a card** — ship a gallery feature live (infinite scroll, search, lightbox, collections).
+4. **Narrate Cursor** — Agent View, models, MCP as you build.
 
 ## Agenda
 
 | Min | Beat | Narrate |
 |-----|------|---------|
-| 0–1 | Show the page | Looks intentional — then peel back the layers |
-| 1–4 | Color → image → spacing | Fast model; Rules in `@demo-standards.mdc` |
-| 4–7 | API 500 | Thinking model; Agent View across route + panel |
-| 7–11 | MongoDB MCP + index | Real stack; Plan mode optional |
-| 11–15 | Talk Cursor 3 surfaces, models, MCP | You drive — nothing repeated on the page |
+| 0–2 | Landing + gallery preview | Adobe creative context — not a generic SaaS page |
+| 2–4 | `src/app/api/reference/gallery` vs gallery repo | Clean errors, Zod, blur placeholders |
+| 4–5 | `curl` the reference endpoint | Prove the pattern before building |
+| 5–12 | Pick one ambitious card | Infinite scroll or search results = best wow |
+| 12–15 | Recap what shipped | Cursor surfaces used during the build |
+
+## Recommended live builds
+
+| Card | Why it wows |
+|------|-------------|
+| **Infinite scroll** | Visible, scrolling payoff — classic gallery moment |
+| **Search results page** | SearchBar → `/results/[query]` — full user flow |
+| **Production /api/gallery** | Shows Agent can match reference quality quickly |
+| **Lightbox modal** | Immediate visual delight on click |
+
+Each card includes a ready-made Agent prompt referencing nextjs-image-gallery patterns.
+
+## Reference API
+
+```bash
+curl "http://localhost:3001/api/reference/gallery?topic=curated&page=1"
+curl "http://localhost:3001/api/reference/gallery?topic=architecture&page=1"
+```
+
+See [REFERENCE_API.md](./REFERENCE_API.md).
 
 ## Model routing
 
-| Fix | Suggested prompt | Model tier |
-|-----|------------------|------------|
-| Typo | Fix the welcome headline | Fast / Tab |
-| Hint color | Set hint text color per demo-standards | Fast |
-| Hero mark | Remove or fix the hero image | Fast |
-| Panel spacing | Balance panel inset and section gap per rules | Fast |
-| API 500 | Fix `/api/ping` to return 200 JSON | Thinking |
-| Mongo | Inspect `usage_events`, add `{ team: 1 }` index | Agent + MCP |
-
-## Fix details
-
-### Color (hint 1)
-
-`src/lib/demoTheme.ts` — `HIDDEN_HINT_COLOR = CURSOR_MUTED_TEXT`
-
-### Hero mark (hint 2)
-
-`src/lib/demoTheme.ts` — `SHOW_HERO_MARK = false`, or `Hero.tsx` → `/cursor-mark.svg`
-
-### Spacing (hint 3)
-
-`src/lib/demoLayout.ts`:
-
-- `FEATURE_SECTION_GAP_PX = FEATURE_SECTION_GAP_STANDARD_PX`
-- `PANEL_INSET_END_PX = PANEL_INSET_STANDARD_PX`
-
-### API (hint 4)
-
-`src/app/api/ping/route.ts`:
-
-```ts
-return NextResponse.json({ ok: true, message: 'Ready' });
-```
-
-### MongoDB MCP
-
-1. **Load team stats** — note docs examined
-2. MongoDB MCP: sample `usage_events`, explain `{ team: "design" }`
-3. `db.usage_events.createIndex({ team: 1 })`
-4. Re-run stats
-
-## Differentiators (you narrate — not on page)
-
-Models per task, Agent View, MCP, Rules, IDE / CLI / Web Agents, background agents.
+| Task | Model tier |
+|------|------------|
+| Navbar, blur polish, Express CTA | Fast |
+| /api/gallery from reference | Thinking |
+| Infinite scroll + API + UI | Agent + Plan mode |

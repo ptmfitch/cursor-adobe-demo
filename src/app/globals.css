@@ -5,10 +5,6 @@
 :root {
   --page-background: #0b0b0f;
   --page-surface: #141419;
-  --hidden-hint-color: #0b0b0f;
-  --reveal-hint-1-visible: 0;
-  --reveal-hint-2-opacity: 0;
-  --feature-section-gap: 0px;
 }
 
 body {
@@ -22,7 +18,16 @@ body {
     radial-gradient(ellipse 80% 50% at 50% -20%, rgb(237 28 36 / 0.12), transparent),
     radial-gradient(ellipse 60% 40% at 100% 0%, rgb(255 154 0 / 0.08), transparent),
     radial-gradient(ellipse 50% 30% at 0% 100%, rgb(255 255 255 / 0.04), transparent),
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
     var(--page-background);
+  background-size:
+    auto,
+    auto,
+    auto,
+    48px 48px,
+    48px 48px,
+    auto;
 }
 
 .glass-panel {
@@ -38,32 +43,13 @@ body {
   backdrop-filter: blur(12px);
 }
 
-.reveal-hint {
-  font-size: 0.8125rem;
-  letter-spacing: 0.02em;
-  transition: color 0.4s ease, opacity 0.4s ease, max-height 0.4s ease;
+.glass-card {
+  background: rgb(255 255 255 / 0.03);
+  border: 1px solid rgb(255 255 255 / 0.08);
 }
 
-.reveal-hint-1 {
-  overflow: hidden;
-  max-height: calc(var(--reveal-hint-1-visible) * 2.5rem);
-  opacity: var(--reveal-hint-1-visible);
-  color: rgb(163 163 168 / 0.9);
-}
-
-.reveal-hint-2 {
-  overflow: hidden;
-  max-height: calc(var(--reveal-hint-2-opacity) * 2.5rem);
-  opacity: var(--reveal-hint-2-opacity);
-}
-
-.reveal-hint-3 {
-  overflow: hidden;
-  max-height: var(--feature-section-gap);
-  margin-top: calc(var(--feature-section-gap) / 2);
-  color: rgb(163 163 168 / 0.9);
-}
-
-.reveal-hint-4 {
-  color: rgb(255 154 0 / 0.95);
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid rgb(255 154 0 / 0.8);
+  outline-offset: 2px;
 }

@@ -6,16 +6,14 @@
     "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start -p 3001",
-    "lint": "eslint .",
-    "mongo:up": "bash scripts/mongo-setup.sh",
-    "mongo:down": "bash scripts/mongo-stop.sh",
-    "mongo:seed": "node scripts/seed-demo-data.mjs"
+    "lint": "eslint ."
   },
   "dependencies": {
-    "mongodb": "^6.12.0",
     "next": "15.5.18",
+    "plaiceholder": "^3.0.0",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@types/node": "20.14.12",

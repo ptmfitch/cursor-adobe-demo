@@ -1,50 +1,41 @@
-import SiteChrome from '@/components/SiteChrome';
+import FeatureIdeasPanel from '@/components/FeatureIdeasPanel';
+import GalleryPreview from '@/components/GalleryPreview';
 import Hero from '@/components/Hero';
-import TrialPanel from '@/components/TrialPanel';
-import {
-  CONTENT_SECTION_GAP_PX,
-  FEATURE_SECTION_GAP_PX,
-  PAGE_MAX_WIDTH_PX,
-  PANEL_INSET_END_PX,
-} from '@/lib/demoLayout';
-import {
-  HIDDEN_HINT_COLOR,
-  PAGE_BACKGROUND,
-  SHOW_HERO_MARK,
-} from '@/lib/demoTheme';
+import SiteChrome from '@/components/SiteChrome';
+import SiteFooter from '@/components/SiteFooter';
+import TrialStrip from '@/components/TrialStrip';
+import { THEME } from '@/lib/theme';
 
 export default function HomePage() {
   return (
     <div className="page-shell min-h-screen">
       <main
         className="mx-auto px-6 py-10 sm:px-10 sm:py-16"
-        style={{
-          maxWidth: `${PAGE_MAX_WIDTH_PX}px`,
-          ['--page-background' as string]: PAGE_BACKGROUND,
-          ['--reveal-hint-1-visible' as string]:
-            HIDDEN_HINT_COLOR === PAGE_BACKGROUND ? '0' : '1',
-          ['--reveal-hint-2-opacity' as string]: SHOW_HERO_MARK ? '0' : '1',
-          ['--feature-section-gap' as string]: `${FEATURE_SECTION_GAP_PX}px`,
-        }}
+        style={{ maxWidth: `${THEME.layout.pageMaxWidthPx}px` }}
       >
-        <div className="space-y-12">
+        <div
+          className="flex flex-col"
+          style={{ gap: `${THEME.layout.sectionGapPx}px` }}
+        >
           <SiteChrome />
           <Hero
-            headline="Welcom, Adobe."
-            subline="Good to have you here."
+            headline="Welcome, Adobe."
+            subline="Build at the speed of ideas."
           />
+          <TrialStrip />
           <section
             className="glass-panel rounded-3xl"
-            style={{
-              marginTop: `${FEATURE_SECTION_GAP_PX}px`,
-              paddingTop: `${CONTENT_SECTION_GAP_PX}px`,
-              paddingBottom: `${CONTENT_SECTION_GAP_PX}px`,
-              paddingLeft: `${PANEL_INSET_END_PX}px`,
-              paddingRight: `${PANEL_INSET_END_PX - 8}px`,
-            }}
+            style={{ padding: `${THEME.layout.panelPaddingPx}px` }}
           >
-            <TrialPanel />
+            <GalleryPreview />
           </section>
+          <section
+            className="glass-panel rounded-3xl"
+            style={{ padding: `${THEME.layout.panelPaddingPx}px` }}
+          >
+            <FeatureIdeasPanel />
+          </section>
+          <SiteFooter />
         </div>
       </main>
     </div>

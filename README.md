@@ -1,44 +1,32 @@
-# Adobe × Cursor 3 Demo App
+# Adobe × Cursor Creative Gallery Demo
 
-Polished single-page demo for a 10–15 minute Adobe trial walkthrough. Looks intentional on first load; hidden hints unlock as you fix deliberate issues live.
+Polished Adobe trial landing built around a **Pexels creative gallery** — inspired by [nextjs-image-gallery](../nextjs-image-gallery). Pick a feature card and build it live with Agent.
 
 ## Quick start
 
 ```bash
 cd ~/Programming/git/cursor-adobe-demo
 npm install
-npm run mongo:up    # local MongoDB in background + seed (~5k docs, no team index)
-npm run dev         # http://localhost:3001
+cp .env.example .env.local   # add Pexels API key for live photos
+npm run dev                  # http://localhost:3001
 ```
 
 ## What's included
 
-- **Page**: Branded welcome, glass activity panel, minimal copy
-- **Hidden reveal chain**: color → hero mark → spacing → API → MCP (see `DEMO_SCRIPT.md`)
-- **`GET /api/ping`**: Returns 500 until fixed
-- **`GET /api/stats?team=design`**: MongoDB query without `team` index
-- **Rules**: `.cursor/rules/demo-standards.mdc`
+- **Gallery preview** — curated masonry grid (live with Pexels key, placeholders without)
+- **Search bar shell** — wire to `/results/[query]` during demo
+- **16 build cards** — gallery features to ship live (infinite scroll, lightbox, collections, …)
+- **Reference API** — `GET /api/reference/gallery` (production-quality pattern)
 
-## MongoDB
+## Docs
 
-Requires a local `mongod` (Homebrew example):
+- [DEMO_SCRIPT.md](./DEMO_SCRIPT.md) — 10–15 minute flow
+- [REFERENCE_API.md](./REFERENCE_API.md) — endpoint spec and copy-paste pattern
 
-```bash
-brew tap mongodb/brew
-brew install mongodb-community
-```
+## Scripts
 
-Then `npm run mongo:up` starts a background instance on port 27017 using `.mongo-data/` in this repo. When you're done: `npm run mongo:down`.
-
-## Demo script
-
-See [DEMO_SCRIPT.md](./DEMO_SCRIPT.md) for the reveal order and timed agenda.
-
-## Built-in demo fixes
-
-1. Typo: `Welcom` in `src/app/page.tsx`
-2. Hint color: `HIDDEN_HINT_COLOR` in `demoTheme.ts`
-3. Hero mark: broken image / `SHOW_HERO_MARK` in `demoTheme.ts`
-4. Panel spacing: `FEATURE_SECTION_GAP_PX` + `PANEL_INSET_END_PX` in `demoLayout.ts`
-5. API 500 in `src/app/api/ping/route.ts`
-6. Slow Mongo query — add `{ team: 1 }` index via MongoDB MCP
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Dev server on port 3001 |
+| `npm run build` | Production build |
+| `npm run lint` | ESLint |
